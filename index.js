@@ -24,6 +24,17 @@ app.post("/filterCategory", async (req, res) => {
     .json({ status: "success", count: data.length, result: data });
 });
 
+app.post("/filterViews", async (req, res) => {
+  const view = req.body.greaterThan;
+  let { data, error } = await supabase
+    .from("news")
+    .select("title,content,imag_url,views")
+    .gt("views", view);
+  return res
+    .status(200)
+    .json({ status: "success", count: data.length, result: data });
+});
+
 app.listen(5000, () => {
   console.log("Server start on port 5000");
 });
