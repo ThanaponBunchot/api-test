@@ -1,3 +1,6 @@
+import supabase from "./config/supabase.js";
+
+
 export const fetchData = async (req, res) => {
   let { data, error } = await supabase.from("news").select("*");
   return res
