@@ -21,7 +21,7 @@ let { data, error } = await supabase
 app.post("/filterCategory",async(req,res)=>{
   let { data, error } = await supabase
 .from('news')
-.select('title')
+.select('title','content','imag_url','views')
 .textSearch('category','รถยนต์')
 return res.status(200).json({status:"success",count:data.length,result:data})
 
