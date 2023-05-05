@@ -2,13 +2,9 @@ import supabase from "./config/supabase.js";
 import express from "express";
 import cors from "cors";
 
-import * as useNews from  "./src/controller/news.js"
-
 const app = express();
 app.use(express.json());
 app.use(cors());
-
-
 
 app.get("/", async (req, res) => {
   let { data, error } = await supabase.from("news").select("*");
