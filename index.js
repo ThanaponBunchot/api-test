@@ -1,32 +1,28 @@
 import supabase from "./config/supabase.js";
 import express from "express";
-import cors from "cors"
-
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
+app.get("/", async (req, res) => {
+  let { data, error } = await supabase.from("news").select("*");
+  return res
+    .status(200)
+    .json({ status: "success", count: data.length, result: data });
+});
 
-app.get('/', async(req, res) => {
-  
-let { data, error } = await supabase
-.from('news')
-.select('*')
-  return res.status(200).json({status:"success",count:data.length,result:data})
-
-})
-
-
-app.post("/filterCategory",async(req,res)=>{
+app.post("/filterCategory", async (req, res) => {
+  const category = req.body.category;
   let { data, error } = await supabase
-.from('news')
-.select('title,content,imag_url,views')
-.textSearch('category','รถยนต์')
-return res.status(200).json({status:"success",count:data.length,result:data})
-
-})
-
+    .from("news")
+    .select("title,content,imag_url,views")
+    .textSearch("category", category);
+  return res
+    .status(200)
+    .json({ status: "success", count: data.length, result: data });
+});
 
 app.listen(5000, () => {
   console.log("Server start on port 5000");
