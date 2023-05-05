@@ -1,7 +1,7 @@
 import supabase from "./config/supabase.js";
 import express from "express";
 import cors from "cors";
-import * as useNewsCtl from "./src/controller/news.js"
+// import * as useNewsCtl from "./src/controller/news.js"
 
 const app = express();
 app.use(express.json());
